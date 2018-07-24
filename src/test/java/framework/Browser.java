@@ -11,6 +11,8 @@ public class Browser extends BaseEntity{
     private static WebDriver driver;
     private static Browser instance;
     private static String OS = System.getProperty("os.name").toLowerCase();
+    
+    private static String browser = System.getProperty("browser");
 
     private static final String chromeDriverPath = "./src/test/resources/chromedriver";
     private static final String geckoDriverPath = "./src/test/resources/geckodriver";
@@ -45,7 +47,7 @@ public class Browser extends BaseEntity{
             case "linux":
                 break;
         }
-        switch (configFile.getConfigProperty("browser")) {
+        switch (browser) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", pathChrome);
                 driver = new ChromeDriver();
