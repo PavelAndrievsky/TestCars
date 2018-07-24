@@ -11,13 +11,24 @@ public class Browser extends BaseEntity{
     private static WebDriver driver;
     private static Browser instance;
     private static String OS = System.getProperty("os.name").toLowerCase();
-    
-    private static String browser = System.getProperty("browser");
+
+    private static String browser = getParameter("browser");
 
     private static final String chromeDriverPath = "./src/test/resources/chromedriver";
     private static final String geckoDriverPath = "./src/test/resources/geckodriver";
 
     private Browser(){}
+
+    private static String getParameter(String name) {
+        String value = System.getProperty(name);
+        if (value == null)
+            throw new RuntimeException(name + " is not a parameter!");
+
+        if (value.isEmpty())
+            throw new RuntimeException(name + " is empty!");
+
+        return value;
+    }
 
     static Browser getInstance() {
         if (instance == null) {
